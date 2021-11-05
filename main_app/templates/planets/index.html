@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Planets</h1>
+{% for planet in planets %}
+<a href="{% url 'planets_detail' planet.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title"><strong>{{ planet.name }}</strong></span>
+            <p>Type: {{ planet.planet_type }}</p>
+        </div>
+    </div>
+</a>
+{% endfor %} {% endblock %}
