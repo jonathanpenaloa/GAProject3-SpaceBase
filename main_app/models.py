@@ -4,9 +4,9 @@ from datetime import date
 from django.contrib.auth.models import User
 
 # Create your models here.
-class SpaceObject(models.Model):
+class Star(models.Model):
 		name = models.CharField(max_length=50)
-		so_type = models.CharField(max_length=50)
+		star_type = models.CharField(max_length=50)
 		mass = models.CharField(max_length=50)
 		diameter = models.CharField(max_length=50)
 		distance = models.CharField(max_length=50)
@@ -17,11 +17,11 @@ class SpaceObject(models.Model):
 		def __str__(self):
 			return f'({self.id}) - {self.name}'
 		def get_absolute_url(self):
-				return reverse('detail', kwargs={'spaceobject_id': self.id})
+				return reverse('detail', kwargs={'star_id': self.id})
 
 class Photo(models.Model):
 		url=models.CharField(max_length=200)
-		ship=models.ForeignKey(SpaceObject, on_delete=models.CASCADE)
+		ship=models.ForeignKey(Star, on_delete=models.CASCADE)
 
 		def __str__(self):
-				return f"Photo for spaceobject_id:{self.spaceobject_id}@{self.url}"
+				return f"Photo for star_id:{self.star_id}@{self.url}"
