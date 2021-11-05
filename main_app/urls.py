@@ -16,4 +16,11 @@ urlpatterns = [
     path('planets/<int:planet_id>/', views.planets_detail, name='planets_detail'),
     path('planets/<int:pk>/update/', views.PlanetUpdate.as_view(), name='planets_update'),
     path('planets/<int:pk>/delete/', views.PlanetDelete.as_view(), name='planets_delete'),
+    
+	
+	path('satellites/', views.satellites_index, name='satellites_index'),
+    path('satellites/create/', views.SatelliteCreate.as_view(), name='satellites_create'),
+    path('satellites/<int:satellite_id>/', views.satellites_detail, name='satellites_detail'),
+    path('satellites/<int:pk>/update/', views.SatelliteUpdate.as_view(), name='satellites_update'),
+    path('satellites/<int:pk>/delete/', views.SatelliteDelete.as_view(), name='satellites_delete'),
 ]

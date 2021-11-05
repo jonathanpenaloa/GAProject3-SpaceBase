@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Satellites</h1>
+{% for satellite in satellites %}
+<a href="{% url 'satellites_detail' satellite.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title"><strong>{{ satellite.name }}</strong></span>
+            <p>Type: {{ satellite.satellite_type }}</p>
+        </div>
+    </div>
+</a>
+{% endfor %}
+{% endblock %}
