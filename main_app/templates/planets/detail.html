@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Planets</h1>
+
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">{{ planet.name }}</span>
+                <p>Type: {{ planet.planet_type }}</p>
+                <p>Mass: {{ planet.mass }}</p>
+                <p>Diameter: {{ planet.diameter }}</p>
+                <p>Distance: {{ planet.distance }}</p>
+                <p>Description: {{ planet.description }}</p>
+
+            </div>
+            <div class="card-action">
+                <a href="{% url 'planets_update' planet.id %}">Edit</a>
+                <a href="{% url 'planets_delete' planet.id %}">Delete</a>
+            </div>
+        </div>
+
+    </div
+
+    {% endblock %}

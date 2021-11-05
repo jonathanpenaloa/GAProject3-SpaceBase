@@ -25,6 +25,10 @@
                     {% if user.is_authenticated%}
                     <li><a href="{% url 'index' %}">Stars</a></li>
                     <li><a href="{% url 'stars_create' %}">Add A Star</a></li>
+
+                    <li><a href="{% url 'planets_index' %}">Planets</a></li>
+                    <li><a href="{% url 'planets_create' %}">Add A Planet</a></li>
+
                     <li><a href="{% url 'logout' %}">Log Out</a></li>
                     {% else %}
                     <li><a href="{% url 'signup' %}">Sign Up</a></li>
