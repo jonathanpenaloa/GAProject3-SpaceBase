@@ -6,4 +6,8 @@ urlpatterns = [
 		path('about/', views.about, name='about'),
 		path('accounts/signup/', views.signup, name='signup'),
 		path('stars/', views.stars_index, name='index'),
+		path('stars/create/', views.StarCreate.as_view(), name='stars_create'),
+  path('stars/<int:star_id>/', views.stars_detail, name='detail'),
+ path('stars/<int:pk>/update/', views.StarUpdate.as_view(), name='stars_update'),
+  path('stars/<int:pk>/delete/', views.StarDelete.as_view(), name='stars_delete'),
 ]

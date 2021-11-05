@@ -35,3 +35,25 @@ def signup(request):
 def stars_index(request):
 				stars = Star.objects.all()
 				return render(request, 'stars/index.html', {'stars': stars})
+
+@login_required
+def stars_detail(request, star_id):
+  star = Star.objects.get(id=star_id)
+  return render(request, 'stars/detail.html', {
+    'star': star,
+  })
+
+class StarCreate(LoginRequiredMixin, CreateView):
+		model = Star
+		fields = ['name', 'star_type', 'mass', 'diameter', 'distance','description']
+		def form_valid(self, form):
+				form.instance.user=self.request.user
+				return super().form_valid(form)
+
+class StarUpdate(LoginRequiredMixin, UpdateView):
+		model = Star
+		fields = ['star_type', 'mass', 'diameter', 'description']
+
+class StarDelete(LoginRequiredMixin, DeleteView):
+		model = Star
+		success_url = '/stars/'
