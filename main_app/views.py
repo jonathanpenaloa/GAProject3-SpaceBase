@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
 import os
 import boto3
-from .models import Star, Planet
+from .models import Star, Planet, Satellite
 
 # Create your views here.
 
@@ -106,3 +106,39 @@ class PlanetUpdate(LoginRequiredMixin, UpdateView):
 class PlanetDelete(LoginRequiredMixin, DeleteView):
     model = Planet
     success_url = '/planets/'
+
+
+@login_required
+def satellites_index(request):
+    satellites = Satellite.objects.all()
+    return render(request, 'satellites/index.html', {'satellites': satellites})
+
+@login_required
+def satellites_detail(request, satellite_id):
+    satellite = Satellite.objects.get(id=satellite_id)
+    return render(request, 'satellites/detail.html', {
+        'satellite': satellite
+    })
+
+
+class SatelliteCreate(LoginRequiredMixin, CreateView):
+    model = Satellite
+
+    fields = ['name', 'satellite_type', 'mass',
+              'diameter', 'distance', 'description']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class SatelliteUpdate(LoginRequiredMixin, UpdateView):
+    model = Satellite
+
+    fields = ['satellite_type', 'mass', 'diameter', 'description']
+
+
+class SatelliteDelete(LoginRequiredMixin, DeleteView):
+    model = Satellite
+
+    success_url = '/satellites/'
