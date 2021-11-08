@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Missions</h1>
+
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">{{ mission.name }}</span>
+                <p>Type: {{ mission.mission_type }}</p>
+                <p>Year Launched: {{ mission.launched }}</p>
+                <p>Description: {{ mission.description }}</p>
+
+
+            </div>
+            <div class="card-action">
+                <a href="{% url 'missions_update' mission.id %}">Edit</a>
+                <a href="{% url 'missions_delete' mission.id %}">Delete</a>
+            </div>
+        </div>
+
+        </div {% endblock %}

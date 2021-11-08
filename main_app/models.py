@@ -5,6 +5,17 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Mission(models.Model):
+				name = models.CharField(max_length=50)
+				mission_type = models.CharField(max_length=50)
+				launched = models.IntegerField( )
+				description = models.CharField(max_length=150)
+
+				def __str__(self):
+						return self.name
+    
+				def get_absolute_url(self):
+						return reverse('missions_detail', kwargs={'pk': self.id})
 
 class Star(models.Model):
     name = models.CharField(max_length=50)
@@ -14,7 +25,7 @@ class Star(models.Model):
     distance = models.CharField(max_length=50)
     description = models.CharField(max_length=150)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # missions = models.ManyToManyField(Missions) #ADD LATER ALONG W MODEL
+    missions = models.ManyToManyField(Mission) #ADD LATER ALONG W MODEL
   # users = models.ManyToManyField(Users) #ADD LATER TOO
 
     def __str__(self):
@@ -32,7 +43,7 @@ class Planet(models.Model):
     distance = models.CharField(max_length=50)
     description = models.CharField(max_length=150)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # missions = models.ManyToManyField(Missions) #ADD LATER ALONG W MODEL
+    missions = models.ManyToManyField(Mission) #ADD LATER ALONG W MODEL
   # users = models.ManyToManyField(Users) #ADD LATER TOO
 
     def __str__(self):
@@ -50,7 +61,7 @@ class Satellite(models.Model):
     distance = models.CharField(max_length=50)
     description = models.CharField(max_length=150)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # missions = models.ManyToManyField(Missions) #ADD LATER ALONG W MODEL
+    missions = models.ManyToManyField(Mission) #ADD LATER ALONG W MODEL
   # users = models.ManyToManyField(Users) #ADD LATER TOO
 
     def __str__(self):

@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Missions</h1>
+{% for mission in missions %}
+<a href="{% url 'missions_detail' mission.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title"><strong>{{ mission.name }}</strong></span>
+            <p>Type: {{ mission.mission_type }}</p>
+        </div>
+    </div>
+</a>
+{% endfor %} {% endblock %}
