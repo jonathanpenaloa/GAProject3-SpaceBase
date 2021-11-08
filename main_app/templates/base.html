@@ -45,8 +45,8 @@
                     {% endif %}
                 </ul>
                 <a class="btn dropdown-button" href="#" data-activates="dropdown_planets">&nbsp;&nbsp;Planets&nbsp;&nbsp;</a>
-                
-                
+
+
                 <ul id="dropdown_satellites" class="dropdown-content">
                     <li><a href="#">Satellites</a></li>
                     {% if user.is_authenticated %}
@@ -57,7 +57,7 @@
                     {% endif %}
                 </ul>
                 <a class="btn dropdown-button" href="#" data-activates="dropdown_satellites">&nbsp;&nbsp;Satellite&nbsp;&nbsp;</a>
-                
+
                 <ul id="dropdown_log" class="dropdown-content">
                     <li><a href="#">Logs</a></li>
                     {% if user.is_authenticated %}
@@ -78,56 +78,3 @@
         <div class="right">All Rights Reserved, &copy; 2021 AstroNuts &nbsp;</div>
     </footer>
 </body>
-
-=======
-{% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SpaceBase</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</head>
-
-<body>
-    <header class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper">
-                <ul>
-                    <li><a href="{% url 'home' %}" class="left brand-logo">SpaceBase</a></li>
-                </ul>
-                <ul class="right">
-                    <li><a href="{% url 'about' %}">About</a></li>
-                    {% if user.is_authenticated%}
-                    <li><a href="{% url 'index' %}">Stars</a></li>
-                    <li><a href="{% url 'stars_create' %}">Add A Star</a></li>
-
-                    <li><a href="{% url 'planets_index' %}">Planets</a></li>
-                    <li><a href="{% url 'planets_create' %}">Add A Planet</a></li>
-                    
-                    <li><a href="{% url 'satellites_index' %}">Satellite</a></li>
-                    <li><a href="{% url 'satellites_create' %}">Add A Satellite</a></li>
-
-                    <li><a href="{% url 'logout' %}">Log Out</a></li>
-                    {% else %}
-                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                    <li><a href="{% url 'login' %}">Log In</a></li>
-                    {% endif %}
-            </div>
-        </nav>
-    </header>
-    <main class="container">
-        {% block content %} {% endblock %}
-    </main>
-    <footer class="page-footer">
-        <div class="right">All Rights Reserved, &copy; 2021 AstroNuts &nbsp;</div>
-    </footer>
-</body>
-
-</html>
