@@ -36,13 +36,11 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 
-@login_required
 def stars_index(request):
     stars = Star.objects.all()
     return render(request, 'stars/index.html', {'stars': stars})
 
 
-@login_required
 def stars_detail(request, star_id):
     star = Star.objects.get(id=star_id)
     return render(request, 'stars/detail.html', {
@@ -75,12 +73,10 @@ class StarDelete(LoginRequiredMixin, DeleteView):
 
 
 
-@login_required
 def planets_index(request):
     planets = Planet.objects.all()
     return render(request, 'planets/index.html', {'planets': planets})
 
-@login_required
 def planets_detail(request, planet_id):
     planet = Planet.objects.get(id=planet_id)
     return render(request, 'planets/detail.html', {
@@ -108,12 +104,10 @@ class PlanetDelete(LoginRequiredMixin, DeleteView):
     success_url = '/planets/'
 
 
-@login_required
 def satellites_index(request):
     satellites = Satellite.objects.all()
     return render(request, 'satellites/index.html', {'satellites': satellites})
 
-@login_required
 def satellites_detail(request, satellite_id):
     satellite = Satellite.objects.get(id=satellite_id)
     return render(request, 'satellites/detail.html', {
