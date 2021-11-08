@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
 import os
 import boto3
-from .models import Star, Planet, Satellite
+from .models import Star, Planet, Satellite, Mission
 
 # Create your views here.
 
@@ -67,6 +67,12 @@ class StarDelete(LoginRequiredMixin, DeleteView):
     model = Star
     success_url = '/stars/'
 
+
+
+
+
+
+
 def planets_index(request):
     planets = Planet.objects.all()
     return render(request, 'planets/index.html', {'planets': planets})
@@ -77,6 +83,7 @@ def planets_detail(request, planet_id):
         'planet': planet,
     })
 
+
 class PlanetCreate(LoginRequiredMixin, CreateView):
     model = Planet
     fields = ['name', 'planet_type', 'mass',
@@ -86,13 +93,16 @@ class PlanetCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+
 class PlanetUpdate(LoginRequiredMixin, UpdateView):
     model = Planet
     fields = ['planet_type', 'mass', 'diameter', 'description']
 
+
 class PlanetDelete(LoginRequiredMixin, DeleteView):
     model = Planet
     success_url = '/planets/'
+
 
 def satellites_index(request):
     satellites = Satellite.objects.all()
@@ -104,6 +114,7 @@ def satellites_detail(request, satellite_id):
         'satellite': satellite
     })
 
+
 class SatelliteCreate(LoginRequiredMixin, CreateView):
     model = Satellite
 
@@ -114,40 +125,47 @@ class SatelliteCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+
 class SatelliteUpdate(LoginRequiredMixin, UpdateView):
     model = Satellite
 
     fields = ['satellite_type', 'mass', 'diameter', 'description']
 
+
 class SatelliteDelete(LoginRequiredMixin, DeleteView):
     model = Satellite
+
     success_url = '/satellites/'
 
+def missions_index(request):
+    missions = Mission.objects.all()
+    return render(request, 'missions/index.html', {'missions': missions})
 
-@login_required
-def satellites_detail(request, satellite_id):
-    satellite = Satellite.objects.get(id=satellite_id)
-    return render(request, 'satellites/detail.html', {
-        'satellite': satellite
+def missions_detail(request, mission_id):
+    mission = Mission.objects.get(id=mission_id)
+    return render(request, 'missions/detail.html', {
+        'mission': mission
     })
 
-class SatelliteCreate(LoginRequiredMixin, CreateView):
-    model = Satellite
 
-    fields = ['name', 'satellite_type', 'mass',
-              'diameter', 'distance', 'description']
+class MissionCreate(LoginRequiredMixin, CreateView):
+    model = Mission
+
+    fields = ['name', 'mission_type', 'launched',
+              'description']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class SatelliteUpdate(LoginRequiredMixin, UpdateView):
-    model = Satellite
 
-    fields = ['satellite_type', 'mass', 'diameter', 'description']
+class MissionUpdate(LoginRequiredMixin, UpdateView):
+    model = Mission
+    fields = ['name', 'mission_type', 'launched',
+              'description']
 
 
-class SatelliteDelete(LoginRequiredMixin, DeleteView):
-    model = Satellite
+class MissionDelete(LoginRequiredMixin, DeleteView):
+    model = Mission
 
-    success_url = '/satellites/'
+    success_url = '/missions/'
