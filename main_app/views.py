@@ -5,6 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import PlanetForm
 import uuid
 import os
 import boto3
@@ -43,8 +44,11 @@ def stars_index(request):
 
 def stars_detail(request, star_id):
     star = Star.objects.get(id=star_id)
+    planets_star_doesnt_have = Planet.objects.exclude(id__in=star.planet_set.all().values_list('id'))
+    
     return render(request, 'stars/detail.html', {
         'star': star,
+        'planets': planets_star_doesnt_have
     })
 
 
@@ -71,6 +75,11 @@ class StarDelete(LoginRequiredMixin, DeleteView):
 
 
 
+def add_planet(request, star_id, planet_id):
+  planet = Planet.objects.get(id=planet_id)
+  planet.star_id = star_id  
+  planet.save()
+  return redirect('detail', star_id=star_id,)
 
 
 def planets_index(request):
@@ -78,9 +87,11 @@ def planets_index(request):
     return render(request, 'planets/index.html', {'planets': planets})
 
 def planets_detail(request, planet_id):
+    planet_form = PlanetForm()
     planet = Planet.objects.get(id=planet_id)
     return render(request, 'planets/detail.html', {
         'planet': planet,
+        'planet_form': planet_form,
     })
 
 
@@ -169,3 +180,11 @@ class MissionDelete(LoginRequiredMixin, DeleteView):
     model = Mission
 
     success_url = '/missions/'
+
+def assoc_mission(request, star_id, mission_id):
+  Star.objects.get(id=star_id).star.add(mission_id)
+  return redirect('detail', star_id=star_id)
+
+def dissoc_mission(request, star_id, mission_id):
+  Star.objects.get(id=star_id).star.remove(mission_id)
+  return redirect('detail', star_id=star_id)

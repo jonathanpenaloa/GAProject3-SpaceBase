@@ -16,3 +16,18 @@ footer.page-footer {
 .btn:hover {
     background-color: #6c3af5;
 }
+
+video {
+    position: absolute;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+  }
+
+nav {
+    background-color: transparent !important;
+
+}
