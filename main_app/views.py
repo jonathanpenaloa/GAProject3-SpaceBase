@@ -135,6 +135,9 @@ class SatelliteUpdate(LoginRequiredMixin, UpdateView):
 class SatelliteDelete(LoginRequiredMixin, DeleteView):
     model = Satellite
 
+<<<<<<< HEAD
+    success_url = '/satellites/'
+=======
     success_url = '/satellites/'
 
 from django.shortcuts import render, redirect
@@ -281,3 +284,4 @@ class SatelliteDelete(LoginRequiredMixin, DeleteView):
     model = Satellite
 
     success_url = '/satellites/'
+>>>>>>> main
