@@ -134,4 +134,4 @@ LOGIN_REDIRECT_URL='/'
 LOGOUT_REDIRECT_URL='/'
 
 import django_on_heroku
-django_on_heroku.settings(local())
+django_on_heroku.settings(locals())
