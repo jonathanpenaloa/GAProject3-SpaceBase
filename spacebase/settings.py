@@ -125,5 +125,10 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Configure to read a .env file's secrets
+import environ
+environ.Env()
+environ.Env.read_env()
+
 LOGIN_REDIRECT_URL='/'
 LOGOUT_REDIRECT_URL='/'

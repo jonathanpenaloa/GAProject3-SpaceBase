@@ -9,7 +9,7 @@ from .forms import PlanetForm
 import uuid
 import os
 import boto3
-from .models import Star, Planet, Satellite, Mission
+from .models import Star, Planet, Satellite, Mission, Photo
 
 # Create your views here.
 
@@ -44,8 +44,9 @@ def stars_index(request):
 
 def stars_detail(request, star_id):
     star = Star.objects.get(id=star_id)
-    planets_star_doesnt_have = Planet.objects.exclude(id__in=star.planet_set.all().values_list('id'))
-    
+    planets_star_doesnt_have = Planet.objects.exclude(
+        id__in=star.planet_set.all().values_list('id'))
+
     return render(request, 'stars/detail.html', {
         'star': star,
         'planets': planets_star_doesnt_have
@@ -72,19 +73,17 @@ class StarDelete(LoginRequiredMixin, DeleteView):
     success_url = '/stars/'
 
 
-
-
-
 def add_planet(request, star_id, planet_id):
-  planet = Planet.objects.get(id=planet_id)
-  planet.star_id = star_id  
-  planet.save()
-  return redirect('detail', star_id=star_id,)
+    planet = Planet.objects.get(id=planet_id)
+    planet.star_id = star_id
+    planet.save()
+    return redirect('detail', star_id=star_id,)
 
 
 def planets_index(request):
     planets = Planet.objects.all()
     return render(request, 'planets/index.html', {'planets': planets})
+
 
 def planets_detail(request, planet_id):
     planet_form = PlanetForm()
@@ -119,6 +118,7 @@ def satellites_index(request):
     satellites = Satellite.objects.all()
     return render(request, 'satellites/index.html', {'satellites': satellites})
 
+
 def satellites_detail(request, satellite_id):
     satellite = Satellite.objects.get(id=satellite_id)
     return render(request, 'satellites/detail.html', {
@@ -148,9 +148,11 @@ class SatelliteDelete(LoginRequiredMixin, DeleteView):
 
     success_url = '/satellites/'
 
+
 def missions_index(request):
     missions = Mission.objects.all()
     return render(request, 'missions/index.html', {'missions': missions})
+
 
 def missions_detail(request, mission_id):
     mission = Mission.objects.get(id=mission_id)
@@ -181,10 +183,30 @@ class MissionDelete(LoginRequiredMixin, DeleteView):
 
     success_url = '/missions/'
 
+
 def assoc_mission(request, star_id, mission_id):
-  Star.objects.get(id=star_id).star.add(mission_id)
-  return redirect('detail', star_id=star_id)
+    Star.objects.get(id=star_id).star.add(mission_id)
+    return redirect('detail', star_id=star_id)
+
 
 def dissoc_mission(request, star_id, mission_id):
-  Star.objects.get(id=star_id).star.remove(mission_id)
-  return redirect('detail', star_id=star_id)
+    Star.objects.get(id=star_id).star.remove(mission_id)
+    return redirect('detail', star_id=star_id)
+
+
+def add_planet_photo(request, planet_id):
+    # the form's input will have a name of photo-file
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        key = uuid.uuid4().hex[:6] + \
+            photo_file.name[photo_file.name.rfind('.'):]
+        try:
+            bucket = os.environ['S3_BUCKET']
+            s3.upload_fileobj(photo_file, bucket, key)
+            # build the full url sting
+            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            Photo.objects.create(url=url, planet_id=planet_id)
+        except Exception as e:
+            print('An error occured uploading file to S3', e)
+    return redirect('planets_detail', planet_id=planet_id)
