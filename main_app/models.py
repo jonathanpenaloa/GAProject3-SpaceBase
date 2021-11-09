@@ -80,3 +80,9 @@ class Planet(models.Model):
         return reverse('planets_detail', kwargs={'planet_id': self.id})
 
 
+class Photo(models.Model):
+  url = models.CharField(max_length=200)
+  planet = models.ForeignKey(Planet, on_delete=models.CASCADE)
+
+  def __str__(self):
+    return f"Photo for planet_id: {self.planet_id} @{self.url}"
