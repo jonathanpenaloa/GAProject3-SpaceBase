@@ -1,1 +1,1 @@
-web: gunicorn GAProject3-SpaceBase.wsgi
+web: gunicorn spacebase.wsgi
