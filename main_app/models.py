@@ -19,11 +19,7 @@ class Mission(models.Model):
     def get_absolute_url(self):
         return reverse('missions_detail', kwargs={'mission_id': self.id})
     
-    # star = models.ForeignKey(Star, on_delete=models.CASCADE)
-    
-    # satellite = models.ForeignKey(Satellite, on_delete=models.CASCADE)
-    
-    # planet = models.ForeignKey(Planet, on_delete=models.CASCADE)
+
 class Satellite(models.Model):
     name = models.CharField(max_length=50)
     satellite_type = models.CharField(max_length=50)
@@ -79,10 +75,21 @@ class Planet(models.Model):
     def get_absolute_url(self):
         return reverse('planets_detail', kwargs={'planet_id': self.id})
 
+class StarPhoto(models.Model):
+  url = models.CharField(max_length=200)
+  star = models.ForeignKey(Star, on_delete=models.CASCADE)
+  def __str__(self):
+    return f"Photo for star_id: {self.star_id} @{self.url}"
 
-class Photo(models.Model):
+class PlanetPhoto(models.Model):
   url = models.CharField(max_length=200)
   planet = models.ForeignKey(Planet, on_delete=models.CASCADE)
-
   def __str__(self):
     return f"Photo for planet_id: {self.planet_id} @{self.url}"
+
+class SatellitePhoto(models.Model):
+  url = models.CharField(max_length=200)
+  satellite = models.ForeignKey(Satellite, on_delete=models.CASCADE)
+  def __str__(self):
+    return f"Photo for satellite_id: {self.satellite_id} @{self.url}"
+    

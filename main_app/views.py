@@ -5,11 +5,11 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import PlanetForm
+from .forms import PlanetForm, StarForm
 import uuid
 import os
 import boto3
-from .models import Star, Planet, Satellite, Mission, Photo
+from .models import Star, Planet, Satellite, Mission, StarPhoto, PlanetPhoto, SatellitePhoto
 
 # Create your views here.
 
@@ -43,13 +43,15 @@ def stars_index(request):
 
 
 def stars_detail(request, star_id):
+    star_form = StarForm()
     star = Star.objects.get(id=star_id)
     planets_star_doesnt_have = Planet.objects.exclude(
         id__in=star.planet_set.all().values_list('id'))
 
     return render(request, 'stars/detail.html', {
         'star': star,
-        'planets': planets_star_doesnt_have
+								'planets': planets_star_doesnt_have,
+								'star_form' : star_form
     })
 
 
@@ -113,6 +115,11 @@ class PlanetDelete(LoginRequiredMixin, DeleteView):
     model = Planet
     success_url = '/planets/'
 
+def add_satellite(request, planet_id, satellite_id):
+    satellite = Satellite.objects.get(id=satellite_id)
+    satellite.planet_id = planet_id
+    satellite.save()
+    return redirect('detail', planet_id=planet_id,)
 
 def satellites_index(request):
     satellites = Satellite.objects.all()
@@ -193,6 +200,22 @@ def dissoc_mission(request, star_id, mission_id):
     Star.objects.get(id=star_id).star.remove(mission_id)
     return redirect('detail', star_id=star_id)
 
+def add_star_photo(request, star_id):
+    # the form's input will have a name of photo-file
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        key = uuid.uuid4().hex[:6] + \
+            photo_file.name[photo_file.name.rfind('.'):]
+        try:
+            bucket = os.environ['S3_BUCKET']
+            s3.upload_fileobj(photo_file, bucket, key)
+            # build the full url sting
+            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            StarPhoto.objects.create(url=url, star_id=star_id)
+        except Exception as e:
+            print('An error occured uploading file to S3', e)
+    return redirect('detail', star_id=star_id)
 
 def add_planet_photo(request, planet_id):
     # the form's input will have a name of photo-file
@@ -206,7 +229,24 @@ def add_planet_photo(request, planet_id):
             s3.upload_fileobj(photo_file, bucket, key)
             # build the full url sting
             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
-            Photo.objects.create(url=url, planet_id=planet_id)
+            PlanetPhoto.objects.create(url=url, planet_id=planet_id)
         except Exception as e:
             print('An error occured uploading file to S3', e)
     return redirect('planets_detail', planet_id=planet_id)
+
+def add_satellite_photo(request, satellite_id):
+    # the form's input will have a name of photo-file
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        key = uuid.uuid4().hex[:6] + \
+            photo_file.name[photo_file.name.rfind('.'):]
+        try:
+            bucket = os.environ['S3_BUCKET']
+            s3.upload_fileobj(photo_file, bucket, key)
+            # build the full url sting
+            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            SatellitePhoto.objects.create(url=url, satellite_id=satellite_id)
+        except Exception as e:
+            print('An error occured uploading file to S3', e)
+    return redirect('satellites_detail', satellite_id=satellite_id)
