@@ -1,1 +1,1 @@
-web: gunicorn intoinfinity.wsgi
+web: gunicorn GAProject3-SpaceBase.wsgi
