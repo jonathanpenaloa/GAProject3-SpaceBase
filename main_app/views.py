@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import PlanetForm, StarForm
+from .forms import PlanetForm, StarForm, StarMissionForm
 import uuid
 import os
 import boto3
@@ -44,14 +44,17 @@ def stars_index(request):
 
 def stars_detail(request, star_id):
     star_form = StarForm()
+    star_mission_form = StarMissionForm()
     star = Star.objects.get(id=star_id)
     planets_star_doesnt_have = Planet.objects.exclude(
         id__in=star.planet_set.all().values_list('id'))
 
-    return render(request, 'stars/detail.html', {
+    return render(request, 'stars/detail.html',{
         'star': star,
-								'planets': planets_star_doesnt_have,
-								'star_form' : star_form
+        'planets': planets_star_doesnt_have,
+        'star_form': star_form,
+        'star_mission_form': star_mission_form,
+        'object': star
     })
 
 
@@ -64,6 +67,9 @@ class StarCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+class StarMissionUpdate(LoginRequiredMixin, UpdateView):
+    model = Star
+    fields = ['missions']
 
 class StarUpdate(LoginRequiredMixin, UpdateView):
     model = Star
@@ -115,11 +121,13 @@ class PlanetDelete(LoginRequiredMixin, DeleteView):
     model = Planet
     success_url = '/planets/'
 
+
 def add_satellite(request, planet_id, satellite_id):
     satellite = Satellite.objects.get(id=satellite_id)
     satellite.planet_id = planet_id
     satellite.save()
     return redirect('detail', planet_id=planet_id,)
+
 
 def satellites_index(request):
     satellites = Satellite.objects.all()
@@ -191,14 +199,35 @@ class MissionDelete(LoginRequiredMixin, DeleteView):
     success_url = '/missions/'
 
 
-def assoc_mission(request, star_id, mission_id):
+def assoc_star(request, star_id, mission_id):
     Star.objects.get(id=star_id).star.add(mission_id)
     return redirect('detail', star_id=star_id)
 
 
-def dissoc_mission(request, star_id, mission_id):
+def dissoc_star(request, star_id, mission_id):
     Star.objects.get(id=star_id).star.remove(mission_id)
     return redirect('detail', star_id=star_id)
+
+
+def assoc_planet(request, planet_id, mission_id):
+    Planet.objects.get(id=planet_id).planet.add(mission_id)
+    return redirect('planets_detail', planet_id=planet_id)
+
+
+def dissoc_planet(request, planet_id, mission_id):
+    Planet.objects.get(id=planet_id).planet.add(mission_id)
+    return redirect('planets_detail', planet_id=planet_id)
+
+
+def assoc_satellite(request, satellite_id, mission_id):
+    Satellite.objects.get(id=satellite_id).satellite.add(mission_id)
+    return redirect('satellites_detail', satellite_id=satellite_id)
+
+
+def dissoc_satellite(request, satellite_id, mission_id):
+    Satellite.objects.get(id=satellite_id).satellite.add(mission_id)
+    return redirect('satellites_detail', satellite_id=satellite_id)
+
 
 def add_star_photo(request, star_id):
     # the form's input will have a name of photo-file
@@ -217,6 +246,7 @@ def add_star_photo(request, star_id):
             print('An error occured uploading file to S3', e)
     return redirect('detail', star_id=star_id)
 
+
 def add_planet_photo(request, planet_id):
     # the form's input will have a name of photo-file
     photo_file = request.FILES.get('photo-file', None)
@@ -233,6 +263,7 @@ def add_planet_photo(request, planet_id):
         except Exception as e:
             print('An error occured uploading file to S3', e)
     return redirect('planets_detail', planet_id=planet_id)
+
 
 def add_satellite_photo(request, satellite_id):
     # the form's input will have a name of photo-file

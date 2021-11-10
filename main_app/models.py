@@ -18,24 +18,6 @@ class Mission(models.Model):
 
     def get_absolute_url(self):
         return reverse('missions_detail', kwargs={'mission_id': self.id})
-    
-
-class Satellite(models.Model):
-    name = models.CharField(max_length=50)
-    satellite_type = models.CharField(max_length=50)
-    mass = models.CharField(max_length=50)
-    diameter = models.CharField(max_length=50)
-    distance = models.CharField(max_length=50)
-    description = models.CharField(max_length=150)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    missions = models.ManyToManyField(Mission) #ADD LATER ALONG W MODEL
-  # users = models.ManyToManyField(Users) #ADD LATER TOO
-
-    def __str__(self):
-        return f'({self.id}) - {self.name}'
-
-    def get_absolute_url(self):
-        return reverse('satellites_detail', kwargs={'satellite_id': self.id})
 
 
 class Star(models.Model):
@@ -46,8 +28,7 @@ class Star(models.Model):
     distance = models.CharField(max_length=50)
     description = models.CharField(max_length=150)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    missions = models.ManyToManyField(Mission) #ADD LATER ALONG W MODEL
-  # users = models.ManyToManyField(Users) #ADD LATER TOO
+    missions = models.ManyToManyField(Mission, blank=True)
 
     def __str__(self):
         return f'({self.id}) - {self.name}'
@@ -64,9 +45,7 @@ class Planet(models.Model):
     distance = models.CharField(max_length=50)
     description = models.CharField(max_length=150)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    missions = models.ManyToManyField(Mission) #ADD LATER ALONG W MODEL
-  # users = models.ManyToManyField(Users) #ADD LATER TOO
-    satellite = models.ForeignKey(Satellite, on_delete=models.SET_NULL, blank=True, null=True)
+    missions = models.ManyToManyField(Mission, blank=True)
     star = models.ForeignKey(Star, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
@@ -74,6 +53,23 @@ class Planet(models.Model):
 
     def get_absolute_url(self):
         return reverse('planets_detail', kwargs={'planet_id': self.id})
+
+class Satellite(models.Model):
+    name = models.CharField(max_length=50)
+    satellite_type = models.CharField(max_length=50)
+    mass = models.CharField(max_length=50)
+    diameter = models.CharField(max_length=50)
+    distance = models.CharField(max_length=50)
+    description = models.CharField(max_length=150)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    missions = models.ManyToManyField(Mission, blank=True) 
+    planet = models.ForeignKey(Planet, on_delete=models.SET_NULL, blank=True, null=True)
+
+    def __str__(self):
+        return f'({self.id}) - {self.name}'
+
+    def get_absolute_url(self):
+        return reverse('satellites_detail', kwargs={'satellite_id': self.id})
 
 class StarPhoto(models.Model):
   url = models.CharField(max_length=200)
