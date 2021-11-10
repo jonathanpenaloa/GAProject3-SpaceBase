@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import PlanetForm, StarForm, StarMissionForm
+from .forms import PlanetForm, StarForm, StarMissionForm, PlanetMissionForm, SatelliteMissionForm
 import uuid
 import os
 import boto3
@@ -49,7 +49,7 @@ def stars_detail(request, star_id):
     planets_star_doesnt_have = Planet.objects.exclude(
         id__in=star.planet_set.all().values_list('id'))
 
-    return render(request, 'stars/detail.html',{
+    return render(request, 'stars/detail.html', {
         'star': star,
         'planets': planets_star_doesnt_have,
         'star_form': star_form,
@@ -67,9 +67,11 @@ class StarCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+
 class StarMissionUpdate(LoginRequiredMixin, UpdateView):
     model = Star
     fields = ['missions']
+
 
 class StarUpdate(LoginRequiredMixin, UpdateView):
     model = Star
@@ -95,12 +97,19 @@ def planets_index(request):
 
 def planets_detail(request, planet_id):
     planet_form = PlanetForm()
+    planet_mission_form = PlanetMissionForm()
     planet = Planet.objects.get(id=planet_id)
     return render(request, 'planets/detail.html', {
         'planet': planet,
         'planet_form': planet_form,
+        'planet_mission_form': planet_mission_form,
+        'object': planet
     })
 
+
+class PlanetMissionUpdate(LoginRequiredMixin, UpdateView):
+    model = Planet
+    fields = ['mission']
 
 class PlanetCreate(LoginRequiredMixin, CreateView):
     model = Planet
@@ -135,11 +144,17 @@ def satellites_index(request):
 
 
 def satellites_detail(request, satellite_id):
+    satellite_mission_form = SatelliteMissionForm()
     satellite = Satellite.objects.get(id=satellite_id)
     return render(request, 'satellites/detail.html', {
-        'satellite': satellite
+        'satellite': satellite,
+        'satellite_mission_form': satellite_mission_form,
+        'object': satellite
     })
 
+class SatelliteMissionUpdate(LoginRequiredMixin, UpdateView):
+    model = Planet
+    fields = ['mission']
 
 class SatelliteCreate(LoginRequiredMixin, CreateView):
     model = Satellite
