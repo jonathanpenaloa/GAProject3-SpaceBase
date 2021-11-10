@@ -33,7 +33,7 @@
                     {% for photo in star.starphoto_set.all %}
                     <a class="carousel-item img-responsive"><img src="{{photo.url}}"></a>
                     {% empty %}
-                    <h1 class="center">No Photos Uploaded</h1>
+                    <h1 class="center">Please Add A Photo</h1>
                     {% endfor %}
                 </div>
             </div>
