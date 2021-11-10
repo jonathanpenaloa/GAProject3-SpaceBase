@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Planet, Star
+from .models import Planet, Star, Satellite
 
 class PlanetForm(ModelForm):
     class Meta:
@@ -15,4 +15,14 @@ class StarForm(ModelForm):
 class StarMissionForm(ModelForm):
     class Meta:
         model = Star
+        fields = ['missions']
+
+class PlanetMissionForm(ModelForm):
+    class Meta:
+        model = Planet
+        fields = ['missions']
+
+class SatelliteMissionForm(ModelForm):
+    class Meta:
+        model = Satellite
         fields = ['missions']
