@@ -11,3 +11,8 @@ class StarForm(ModelForm):
     class Meta:
         model = Star
         fields = ['name', 'star_type']
+        
+class StarMissionForm(ModelForm):
+    class Meta:
+        model = Star
+        fields = ['missions']

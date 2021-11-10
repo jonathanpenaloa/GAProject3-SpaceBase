@@ -15,8 +15,9 @@ urlpatterns = [
     path('stars/<int:star_id>/add_star_photo/', views.add_star_photo, name='add_star_photo'),
     path('stars/<int:star_id>/add_planet/<int:planet_id>/', views.add_planet, name='add_planet'),
 
-    path('stars/<int:star_id>/assoc_mission/<int:mission_id>/', views.assoc_mission, name='assoc_mission'),
-    path('stars/<int:star_id>/dissoc_mission/<int:mission_id>/', views.dissoc_mission, name='dissoc_mission'),
+    path('stars/<int:pk>/assoc_star/', views.StarMissionUpdate.as_view(), name='assoc_star'),
+    path('stars/<int:star_id>/dissoc_star/<int:mission_id>/', views.dissoc_star, name='dissoc_star'),
+
  
     path('planets/', views.planets_index, name='planets_index'),
     path('planets/create/', views.PlanetCreate.as_view(), name='planets_create'),
@@ -27,19 +28,19 @@ urlpatterns = [
     path('planets/<int:planet_id>/add_planet_photo/', views.add_planet_photo, name='add_planet_photo'),
     path('planets/<int:planet_id>/add_satellite/<int:satellite_id>/', views.add_satellite, name='add_satellite'),
 	
-    path('planets/<int:planet_id>/assoc_mission/<int:mission_id>/', views.assoc_mission, name='assoc_mission'),
-    path('planet/<int:planet_id>/dissoc_mission/<int:mission_id>/', views.dissoc_mission, name='dissoc_mission'),
+    path('planets/<int:planet_id>/assoc_planet/<int:mission_id>/', views.assoc_planet, name='assoc_planet'),
+    path('planet/<int:planet_id>/dissoc_planet/<int:mission_id>/', views.dissoc_planet, name='dissoc_planet'),
 
-	   path('satellites/', views.satellites_index, name='satellites_index'),
+	path('satellites/', views.satellites_index, name='satellites_index'),
     path('satellites/create/', views.SatelliteCreate.as_view(), name='satellites_create'),
     path('satellites/<int:satellite_id>/', views.satellites_detail, name='satellites_detail'),
     path('satellites/<int:pk>/update/', views.SatelliteUpdate.as_view(), name='satellites_update'),
     path('satellites/<int:pk>/delete/', views.SatelliteDelete.as_view(), name='satellites_delete'),
 	   
-				path('satellites/<int:satellite_id>/add_satellite_photo/', views.add_satellite_photo, name='add_satellite_photo'),
+	path('satellites/<int:satellite_id>/add_satellite_photo/', views.add_satellite_photo, name='add_satellite_photo'),
 				
-    path('satellites/<int:satellite_id>/assoc_mission/<int:mission_id>/', views.assoc_mission, name='assoc_mission'),
-    path('satellites/<int:satellite_id>/dissoc_mission/<int:mission_id>/', views.dissoc_mission, name='dissoc_mission'),
+    path('satellites/<int:satellite_id>/assoc_satellite/<int:mission_id>/', views.assoc_satellite, name='assoc_satellite'),
+    path('satellites/<int:satellite_id>/dissoc_satellite/<int:mission_id>/', views.dissoc_satellite, name='dissoc_satellite'),
 
    	path('missions/', views.missions_index, name='missions_index'),
     path('missions/create/', views.MissionCreate.as_view(), name='missions_create'),

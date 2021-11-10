@@ -42,6 +42,27 @@
     </div>
 </div>
 
+<div class="col s6">
+    <h3>Available Mission</h3>
+    {% if missions.count %} {% for mission in missions.all %}
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">
+      {{ mission.name }}
+    </span>
+        </div>
+        <div class="card-action">
+            <form action="{% url 'assoc_satellite' satellite.id mission.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn">Add</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %} {% else %}
+    <h5>{{satellite.name}} Already Has All Missions Available</h5>
+    {% endif %}
+</div>
+
 <script>
     $(document).ready(function() {
         $('#demo-carousel').carousel();

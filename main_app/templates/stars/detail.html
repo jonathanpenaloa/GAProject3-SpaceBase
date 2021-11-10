@@ -18,7 +18,8 @@
                 <a href="{% url 'stars_delete' star.id %}">Delete</a>
             </div>
         </div>
-        <form action="{% url 'add_star_photo' star.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+        <form action="{% url 'add_star_photo' star.id %}" enctype="multipart/form-data" method="POST"
+            class="card-panel">
             {% csrf_token %}
             <input type="file" name="photo-file">
             <br><br>
@@ -46,9 +47,8 @@
         <ul>
             {% for planet in planets %}
             <li>
-                {{ planet.name }} - {{ planet.description}} &nbsp; &nbsp; <button type="submit">Add</button>
-
                 <form action="{% url 'add_planet' star.id planet.id %}" method="POST">
+                    {{ planet.name }} - {{ planet.planet_type}} &nbsp; &nbsp; <button type="submit">Add</button>
                     {% csrf_token %}
                 </form>
             </li>
@@ -73,26 +73,37 @@
     </div>
 
     <div class="col s6">
-        <h3>Available Mission</h3>
-        {% if missions.count %} {% for mission in missions.all %}
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">
-          {{ mission.name }}
-        </span>
-            </div>
-            <div class="card-action">
-                <form action="{% url 'assoc_mission' star.id mission.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn">Add</button>
-                </form>
-            </div>
-        </div>
-        {% endfor %} {% else %}
-        <h5>{{star.name}} Already Has All Missions Available</h5>
-        {% endif %}
+        <h3>Missions</h3>
+        <form action="{% url 'assoc_star' star.id %}" method="post">
+            {% csrf_token %}
+            {{ star_mission_form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
     </div>
 </div>
 
+<script>
 
+    $(document).ready(function () {
+        $('#demo-carousel').carousel();
+    })
+
+    const missions = [
+        {% for mission in star.missions.all %}
+        '{{ mission.id }}', 
+        {% endfor %} 
+    ];
+
+    missions.forEach(function(m) {
+        const selectEl = document.getElementById('id_missions');
+        let idx = 0;
+        for (let option of selectEl.options) {
+            if (missions.includes(option.value)) selectEl.options[idx].selected = true;
+            idx++;
+        }
+    });
+
+    $('#id_missions').material_select();
+
+</script>
 {% endblock %}
