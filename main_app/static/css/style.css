@@ -32,6 +32,11 @@ footer.page-footer {
 .card .card-action a {
     color: #83c5be
 }
+
+#small {
+    width: 492.75px;
+    height: auto;
+}
 video {
     position: absolute;
     top: 0;
