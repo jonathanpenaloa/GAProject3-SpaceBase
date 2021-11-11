@@ -7,6 +7,13 @@ body {
     display: flex;
     flex-direction: column;
     cursor: url('https://cur.cursors-4u.net/mechanics/mec-1/mec8.cur'), default;
+    /* background: radial-gradient(circle, white, black); */
+
+}
+
+h1 {
+    margin-top: 85px;
+    color: #0a9396;
 }
 
 main {
@@ -90,3 +97,14 @@ footer {
 .m20_0 {
     margin: 20px 0px;
 }
+
+#small {
+    display: block;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    transform: scale(0.85);
+    max-height: 268.1px;
+    
+}
+

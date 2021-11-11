@@ -1,13 +1,22 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Satellites</h1>
-{% for satellite in satellites %}
-<a href="{% url 'satellites_detail' satellite.id %}">
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title"><strong>{{ satellite.name }}</strong></span>
-            <p>Type: {{ satellite.satellite_type }}</p>
-        </div>
+<h1 class="center">Satellites</h1>
+<div class="row">
+    {% for satellite in satellites %}
+    <div class="col s4">
+        <a href="{% url 'satellites_detail' satellite.id %}">
+            <div class="card">
+                <div class="card-image">
+                    <div>
+                        {% for photo in satellite.satellitephoto_set.all %}
+                        <img id="small" src="{{photo.url}}">
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="center card-content">
+                    <span class="card-title"><strong>{{ satellite.name }}</strong></span>
+                    <p>Type: {{ satellite.satellite_type }}</p>
+                </div>
+            </div>
+        </a>
     </div>
-</a>
-{% endfor %}
-{% endblock %}
+    {% endfor %} {% endblock %}
