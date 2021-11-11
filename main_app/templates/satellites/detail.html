@@ -19,7 +19,8 @@
                 <a href="{% url 'satellites_delete' satellite.id %}">Delete</a>
             </div>
         </div>
-        <form action="{% url 'add_satellite_photo' satellite.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+        <form action="{% url 'add_satellite_photo' satellite.id %}" enctype="multipart/form-data" method="POST"
+            class="card-panel">
             {% csrf_token %}
             <input type="file" name="photo-file">
             <br><br>
@@ -42,31 +43,38 @@
     </div>
 </div>
 
-<div class="col s6">
-    <h3>Available Mission</h3>
-    {% if missions.count %} {% for mission in missions.all %}
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title">
-      {{ mission.name }}
-    </span>
-        </div>
-        <div class="card-action">
-            <form action="{% url 'assoc_satellite' satellite.id mission.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn">Add</button>
-            </form>
-        </div>
-    </div>
-    {% endfor %} {% else %}
-    <h5>{{satellite.name}} Already Has All Missions Available</h5>
-    {% endif %}
+
+<div class="row">
+    <h3>Missions</h3>
+    <form action="{% url 'assoc_satellite' satellite.id %}" method="post">
+        {% csrf_token %}
+        {{ satellite_mission_form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
 </div>
 
 <script>
-    $(document).ready(function() {
+
+    $(document).ready(function () {
         $('#demo-carousel').carousel();
     })
-</script>
 
-</div>{% endblock %}
+    const missions = [
+        {% for mission in satellite.missions.all %}
+    '{{ mission.id }}',
+        {% endfor %} 
+];
+
+    missions.forEach(function (m) {
+        const selectEl = document.getElementById('id_missions');
+        let idx = 0;
+        for (let option of selectEl.options) {
+            if (missions.includes(option.value)) selectEl.options[idx].selected = true;
+            idx++;
+        }
+    });
+
+    $('#id_missions').material_select();
+
+</script>
+{% endblock %}

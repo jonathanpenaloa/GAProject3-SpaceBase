@@ -28,7 +28,7 @@ urlpatterns = [
     path('planets/<int:planet_id>/add_planet_photo/', views.add_planet_photo, name='add_planet_photo'),
     path('planets/<int:planet_id>/add_satellite/<int:satellite_id>/', views.add_satellite, name='add_satellite'),
 	
-    path('planets/<int:planet_id>/assoc_planet/<int:mission_id>/', views.assoc_planet, name='assoc_planet'),
+    path('planets/<int:pk>/assoc_planet/', views.PlanetMissionUpdate.as_view(), name='assoc_planet'),
     path('planet/<int:planet_id>/dissoc_planet/<int:mission_id>/', views.dissoc_planet, name='dissoc_planet'),
 
 	path('satellites/', views.satellites_index, name='satellites_index'),
@@ -39,7 +39,7 @@ urlpatterns = [
 	   
 	path('satellites/<int:satellite_id>/add_satellite_photo/', views.add_satellite_photo, name='add_satellite_photo'),
 				
-    path('satellites/<int:satellite_id>/assoc_satellite/<int:mission_id>/', views.assoc_satellite, name='assoc_satellite'),
+    path('satellites/<int:pk>/assoc_satellite/', views.SatelliteMissionUpdate.as_view(), name='assoc_satellite'),
     path('satellites/<int:satellite_id>/dissoc_satellite/<int:mission_id>/', views.dissoc_satellite, name='dissoc_satellite'),
 
    	path('missions/', views.missions_index, name='missions_index'),

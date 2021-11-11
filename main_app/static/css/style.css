@@ -1,7 +1,12 @@
+html {
+    height: 100%;
+}
+
 body {
+    height: 100%;
     display: flex;
-    min-height: 100vh;
     flex-direction: column;
+    cursor: url('https://cur.cursors-4u.net/mechanics/mec-1/mec8.cur'), default;
 }
 
 main {
@@ -29,14 +34,21 @@ footer.page-footer {
     background-color: #14213d;
 }
 
+.card, .card-action, .card-content {
+    border-radius: 25px;
+}
+
 .card .card-action a {
     color: #83c5be
 }
 
-#small {
-    width: 492.75px;
-    height: auto;
+.card:hover {
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    transform: translateY(-10px);
+    box-shadow: 3px 5px grey;
 }
+
 video {
     position: absolute;
     top: 0;
@@ -47,8 +59,17 @@ video {
     opacity: 1;
 }
 
+form {
+    position: relative;
+    overflow: scroll;
+}
+
 nav, footer {
     background-color: transparent !important;
+}
+
+footer {
+    color: #264653 !important;
 }
 
 .img-responsive {
