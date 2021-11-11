@@ -56,6 +56,13 @@ footer.page-footer {
     box-shadow: 3px 5px grey;
 }
 
+img:hover {
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    transform: translateY(-10px);
+    box-shadow: 3px 0 grey;
+}
+
 video {
     position: absolute;
     top: 0;
@@ -103,8 +110,7 @@ footer {
     align-items: center;
     margin-left: auto;
     margin-right: auto;
-    transform: scale(0.85);
-    max-height: 268.1px;
-    
+    /* transform: scale(0.85); */
+    max-height: 300px;
 }
 
