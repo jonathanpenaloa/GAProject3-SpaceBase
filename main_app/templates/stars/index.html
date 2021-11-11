@@ -1,27 +1,22 @@
 {% extends 'base.html' %} {% block content %}
-<h1 class="center" style="color: #0a9396;">Star Systems</h1>
+<h1 class="center">Star Systems</h1>
 <div class="row">
     {% for star in stars %}
-    <div class="col s6">
+    <div class="col s4">
         <a href="{% url 'detail' star.id %}">
             <div class="card">
                 <div class="card-image">
-                    <div class="carousel" id="demo-carousel">
+                    <div>
                         {% for photo in star.starphoto_set.all %}
-                        <img id="small" class="carousel-item img-responsive" src="{{photo.url}}">
+                        <img id="small" src="{{photo.url}}">
                         {% endfor %}
                     </div>
                 </div>
                 <div class="center card-content">
                     <span class="card-title"><strong>{{ star.name }}</strong></span>
-                    <p>Description: {{ star.description }}</p>
+                    <p>Type: {{ star.star_type }}</p>
                 </div>
             </div>
         </a>
     </div>
-    <script>
-        $(document).ready(function () {
-        $('#demo-carousel').carousel();
-    })
-    </script>
     {% endfor %} {% endblock %}

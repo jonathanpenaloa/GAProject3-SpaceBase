@@ -1,12 +1,22 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Planets</h1>
-{% for planet in planets %}
-<a href="{% url 'planets_detail' planet.id %}">
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title"><strong>{{ planet.name }}</strong></span>
-            <p>Type: {{ planet.planet_type }}</p>
-        </div>
+<h1 class="center">Planets</h1>
+<div class="row">
+    {% for planet in planets %}
+    <div class="col s4">
+        <a href="{% url 'planets_detail' planet.id %}">
+            <div class="card">
+                <div class="card-image">
+                    <div>
+                        {% for photo in planet.planetphoto_set.all %}
+                        <img id="small" src="{{photo.url}}">
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="center card-content">
+                    <span class="card-title"><strong>{{ planet.name }}</strong></span>
+                    <p>Type: {{ planet.planet_type }}</p>
+                </div>
+            </div>
+        </a>
     </div>
-</a>
-{% endfor %} {% endblock %}
+    {% endfor %} {% endblock %}

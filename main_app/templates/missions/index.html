@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Missions</h1>
+<h1 class="center">Missions</h1>
 {% for mission in missions %}
 <a href="{% url 'missions_detail' mission.id %}">
     <div class="card">
