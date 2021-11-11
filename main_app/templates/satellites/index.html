@@ -7,9 +7,9 @@
             <div class="card">
                 <div class="card-image">
                     <div>
-                        {% for photo in satellite.satellitephoto_set.all %}
+                        {% with satellite.satellitephoto_set.all|first as photo %}
                         <img id="small" src="{{photo.url}}">
-                        {% endfor %}
+                        {% endwith %}
                     </div>
                 </div>
                 <div class="center card-content">
