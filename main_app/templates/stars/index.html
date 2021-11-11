@@ -7,9 +7,9 @@
             <div class="card">
                 <div class="card-image">
                     <div>
-                        {% for photo in star.starphoto_set.all %}
-                        <img id="small" src="{{photo.url}}">
-                        {% endfor %}
+                        {% with star.starphoto_set.all|first as photo %}
+                        <div><img id="small" src="{{photo.url}}"></div>
+                        {% endwith %}
                     </div>
                 </div>
                 <div class="center card-content">
