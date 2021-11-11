@@ -42,15 +42,15 @@
         </div>
     </div>
 </div>
+<hr>
 
 <div class="row">
     <div class="col s6">
         <ul>
             {% for satellite in satellites %}
             <li>
-                {{ satellite.name }} - {{ satellite.satellite_type}} &nbsp; &nbsp; <button type="submit">Add</button>
-
                 <form action="{% url 'add_satellite' planet.id satellite.id %}" method="POST">
+                    {{ satellite.name }} - {{ satellite.satellite_type}} &nbsp; &nbsp; <button type="submit">Add</button>
                     {% csrf_token %}
                 </form>
             </li>
@@ -92,11 +92,11 @@
 
     const missions = [
         {% for mission in planet.missions.all %}
-        '{{ mission.id }}', 
+        '{{ mission.id }}',
         {% endfor %} 
     ];
 
-    missions.forEach(function(m) {
+    missions.forEach(function (m) {
         const selectEl = document.getElementById('id_missions');
         let idx = 0;
         for (let option of selectEl.options) {
