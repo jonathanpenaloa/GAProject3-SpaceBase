@@ -109,6 +109,12 @@ def planets_detail(request, planet_id):
         'planet_mission_form': planet_mission_form,
         'object': planet
     })
+  
+
+class PlanetMissionUpdate(LoginRequiredMixin, UpdateView):
+    model = Planet
+    fields = ['missions']
+    
 
 
 class PlanetCreate(LoginRequiredMixin, CreateView):
