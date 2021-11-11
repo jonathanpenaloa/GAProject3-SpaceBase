@@ -99,17 +99,17 @@ def planets_detail(request, planet_id):
     planet_form = PlanetForm()
     planet_mission_form = PlanetMissionForm()
     planet = Planet.objects.get(id=planet_id)
+    satellites_planet_doesnt_have = Satellite.objects.exclude(
+        id__in=planet.satellite_set.all().values_list('id'))
+
     return render(request, 'planets/detail.html', {
         'planet': planet,
+        'satellites': satellites_planet_doesnt_have,
         'planet_form': planet_form,
         'planet_mission_form': planet_mission_form,
         'object': planet
     })
 
-
-class PlanetMissionUpdate(LoginRequiredMixin, UpdateView):
-    model = Planet
-    fields = ['mission']
 
 class PlanetCreate(LoginRequiredMixin, CreateView):
     model = Planet
@@ -135,7 +135,7 @@ def add_satellite(request, planet_id, satellite_id):
     satellite = Satellite.objects.get(id=satellite_id)
     satellite.planet_id = planet_id
     satellite.save()
-    return redirect('detail', planet_id=planet_id,)
+    return redirect('planets_detail', planet_id=planet_id,)
 
 
 def satellites_index(request):
@@ -153,8 +153,9 @@ def satellites_detail(request, satellite_id):
     })
 
 class SatelliteMissionUpdate(LoginRequiredMixin, UpdateView):
-    model = Planet
-    fields = ['mission']
+    model = Satellite
+    fields = ['missions']
+
 
 class SatelliteCreate(LoginRequiredMixin, CreateView):
     model = Satellite
