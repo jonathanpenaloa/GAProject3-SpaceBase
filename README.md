@@ -3,7 +3,7 @@ Created by Team AstroNuts—all of whom are avowed fans of space exploration—t
 
 
 **Screenshots**
-![Landing Page Screenshot](https://i.imgur.com/aQRG3kY.png)\
+![Landing Page Screenshot](https://i.imgur.com/aQRG3kY.png)
 
 
 **Technologies Used**
