@@ -1,5 +1,5 @@
 #Into Infinity#
-Created by Team AstroNuts—all of whom are avowed fans of space—this app is made to assist anyone curious to learn about exploring the cosmos. With this app, you can catalog data on stars, planets, moons, other objects in space, and the various missions sent to explore them. 
+Created by Team AstroNuts—all of whom are avowed fans of space exploration—this app is made to assist anyone curious about the cosmos. With this app, you can catalog data on stars, planets, moons, and other objects in space, as well as the various missions sent to explore them.
 
 
 ##Screenshots##
@@ -15,8 +15,8 @@ Created by Team AstroNuts—all of whom are avowed fans of space—this app is m
 
 ##Getting Started##
 
-![Into Infinity](http://intoinfinity.herokuapp.com "Into Infinity")
-![Trello](https://trello.com/b/GESyISPn/space-objects "Trello")
+[Into Infinity](http://intoinfinity.herokuapp.com "Into Infinity")
+[Trello](https://trello.com/b/GESyISPn/space-objects "Trello")
 
 1. A visitor to the site is free to browse the lists of celestial objects, and read a small card with data about some of the facts for each entry. These are divided by scale (stellar, system, satellite), and there is a separate section to read data about various space missions. The backgrounds shift to provide context for where the user is at any point during their visit to the site.
 
