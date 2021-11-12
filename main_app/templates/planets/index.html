@@ -1,5 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 <h1 class="center">Planets</h1>
+<video playsinline autoplay muted loop poster="https://i.imgur.com/uKdLtyK.png" id="bgvid">
+    <source src="https://i.imgur.com/n5dvEMS.mp4" type="video/webm">
+  </video>
 <div class="row">
     {% for planet in planets %}
     <div class="col s4">

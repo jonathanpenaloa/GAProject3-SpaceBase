@@ -1,5 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 <h1 class="center">Missions</h1>
+<video playsinline autoplay muted loop poster="https://i.imgur.com/uKdLtyK.png" id="bgvid">
+    <source src="https://i.imgur.com/wGhHygr.mp4" type="video/webm">
+  </video>
 {% for mission in missions %}
 <a href="{% url 'missions_detail' mission.id %}">
     <div class="card">
