@@ -1,4 +1,4 @@
-_**Into Infinity**_
+_**Into Infinity**_<br>
 Created by Team AstroNuts—all of whom are avowed fans of space exploration—this app is made to assist anyone curious about the cosmos. With this app, you can catalog data on stars, planets, moons, and other objects in space, as well as the various missions sent to explore them.
 
 
@@ -8,16 +8,15 @@ Created by Team AstroNuts—all of whom are avowed fans of space exploration—t
 
 **Technologies Used**
 
-*Languages:* HTML, CSS, Python 
-
+*Languages:* HTML, CSS, Javascript, Python<br>
 *Framework:* Django<br>
-*Platforms:* Heroku (app hosting), Amazon Web Services (app image hosting), Imgur (screenshots/favicon hosting)<br>
-*Resources:* Pixabay, Pexels (background image sourcing)<br>
+*Platforms:* Heroku (app hosting), Amazon Web Services (models images hosting), Imgur (screenshots/favicon/app image hosting)<br>
+*Resources:* Pixabay, Pexels (background image sourcing), W.K. Broxton (clutch video-editing skills)<br>
 
 **Getting Started**
 
-[Into Infinity](http://intoinfinity.herokuapp.com "Into Infinity")\
-[Trello](https://trello.com/b/GESyISPn/space-objects "Trello")\
+[Into Infinity](http://intoinfinity.herokuapp.com "Into Infinity")<br>
+[Trello](https://trello.com/b/GESyISPn/space-objects "Trello")<br>
 
 1. A visitor to the site is free to browse the lists of celestial objects, and read a small card with data about some of the facts for each entry. These are divided by scale (stellar, system, satellite), and there is a separate section to read data about various space missions. The backgrounds shift to provide context for where the user is at any point during their visit to the site.
 
