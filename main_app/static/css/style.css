@@ -4,13 +4,11 @@ html {
     -webkit-background-clip: transparent;
     -webkit-text-fill-color: white;
 }
-
 main.container {
     background: rgba(0, 0, 0, 0.0);
     -webkit-background-clip: transparent;
     -webkit-text-fill-color: white;
 }
-
 
 body {
     background-color: black;
