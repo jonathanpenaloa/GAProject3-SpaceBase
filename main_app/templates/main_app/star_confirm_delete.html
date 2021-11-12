@@ -2,7 +2,9 @@
 <h1>Delete Star</h1>
 
 <h4>Are you sure you want to delete <span class="teal-text">{{ object.name }}</span>?</h4>
-
+<video playsinline autoplay muted loop poster="https://i.imgur.com/uKdLtyK.png" id="bgvid">
+    <source src="https://i.imgur.com/KpIPLwh.mp4" type="video/webm">
+  </video>
 <form action="" method="POST">
     {% csrf_token %}
     <input type="submit" value="Yes - Delete!" class="btn">

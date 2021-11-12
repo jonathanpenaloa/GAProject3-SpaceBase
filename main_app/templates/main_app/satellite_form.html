@@ -1,4 +1,7 @@
 {% extends 'base.html' %} {% block content %} {% if object %}
+<video playsinline autoplay muted loop poster="https://i.imgur.com/uKdLtyK.png" id="bgvid">
+    <source src="https://i.imgur.com/tGkZDDQ.mp4" type="video/webm">
+  </video>
 <h1>Edit <span class="teal-text">{{object.name}}</span></h1>
 {% else %}
 <h1>Add Satellite</h1>
