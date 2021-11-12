@@ -31,13 +31,13 @@ urlpatterns = [
     path('planets/<int:pk>/assoc_planet/', views.PlanetMissionUpdate.as_view(), name='assoc_planet'),
     path('planet/<int:planet_id>/dissoc_planet/<int:mission_id>/', views.dissoc_planet, name='dissoc_planet'),
 
-	path('satellites/', views.satellites_index, name='satellites_index'),
+	   path('satellites/', views.satellites_index, name='satellites_index'),
     path('satellites/create/', views.SatelliteCreate.as_view(), name='satellites_create'),
     path('satellites/<int:satellite_id>/', views.satellites_detail, name='satellites_detail'),
     path('satellites/<int:pk>/update/', views.SatelliteUpdate.as_view(), name='satellites_update'),
     path('satellites/<int:pk>/delete/', views.SatelliteDelete.as_view(), name='satellites_delete'),
 	   
-	path('satellites/<int:satellite_id>/add_satellite_photo/', views.add_satellite_photo, name='add_satellite_photo'),
+	   path('satellites/<int:satellite_id>/add_satellite_photo/', views.add_satellite_photo, name='add_satellite_photo'),
 				
     path('satellites/<int:pk>/assoc_satellite/', views.SatelliteMissionUpdate.as_view(), name='assoc_satellite'),
     path('satellites/<int:satellite_id>/dissoc_satellite/<int:mission_id>/', views.dissoc_satellite, name='dissoc_satellite'),
