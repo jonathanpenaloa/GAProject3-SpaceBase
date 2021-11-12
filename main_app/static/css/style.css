@@ -17,7 +17,6 @@ body {
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
-    /* height: 100%; */
     display: flex;
     flex-direction: column;
     cursor: url('https://cur.cursors-4u.net/mechanics/mec-1/mec8.cur'), default;
@@ -74,15 +73,11 @@ a.btn.dropdown-button {
 .card:hover {
     animation-duration: 3s;
     animation-iteration-count: infinite;
-    /* transform: translateY(-10px); */
-    /* box-shadow: 3px 5px grey; */
 }
 
 img:hover {
     animation-duration: 3s;
     animation-iteration-count: infinite;
-    /* transform: translateY(-10px); */
-    /* box-shadow: 3px 0 grey; */
 }
 
 video {
@@ -130,9 +125,8 @@ video {
 
 form {
     position: relative;
-    /* overflow: scroll; */
 }
-form.card.panel {
+form.card-panel {
     background: rgba(0, 0, 0, 0.0);
     -webkit-background-clip: transparent;
     -webkit-text-fill-color: white;
@@ -175,7 +169,6 @@ footer {
     align-items: center;
     margin-left: auto;
     margin-right: auto;
-    /* transform: scale(0.85); */
     max-height: 300px;
 }
 
@@ -199,4 +192,23 @@ div > h1 {
     align-items: center;
     height: 200px;
     margin-top: 100px;
+}
+.dropdown-content {
+    background-color: black;
+}
+td {
+    background-color: black;
+    background-color: transparent;
+
+}
+#file-upload-button {
+    background-color: black;
+}
+h2, p, h1 {
+    background: rgba(0, 0, 0, 0.0);
+    -webkit-background-clip: transparent;
+    -webkit-text-fill-color: white;
+}
+.right {
+    padding-top: 100%;
 }
